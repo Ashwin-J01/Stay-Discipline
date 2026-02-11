@@ -1,0 +1,159 @@
+/* ===== DASHBOARD LAYOUT ===== */
+.dashboard-container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.dashboard-top-section {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* ===== FIXED 2 COLUMN × 3 ROW GRID ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  transition: 0.2s;
+  height: 125px;
+}
+
+.stat-card:hover {
+  border-color: var(--accent-color);
+}
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-wrapper svg {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+}
+
+.stat-content h3 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.stat-value {
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.stat-value-small {
+  font-size: 0.95rem;
+}
+
+/* ===== PIE CHART ===== */
+.chart-top-right {
+  
+  width: 500px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+/* ===== POINTS ===== */
+.points-summary {
+  margin-top: 2.5rem;
+}
+
+.points-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.points-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.points-item {
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.points-discipline {
+  background: var(--success-light);
+  border-color: var(--success-color);
+}
+
+.points-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.points-achieved {
+  color: var(--success-color);
+}
+
+/* ===== LOADING ===== */
+.loading-container {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  font-size: 2.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .dashboard-top-section {
+    flex-direction: column;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-top-right {
+    width: 100%;
+  }
+
+  .points-grid {
+    grid-template-columns: 1fr;
+  }
+}

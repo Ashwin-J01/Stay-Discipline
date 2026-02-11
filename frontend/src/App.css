@@ -1,0 +1,27 @@
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --accent-color: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-light: #1e293b;
+  --success-color: #10b981;
+  --success-light: #064e3b;
+  --error-color: #ef4444;
+  --error-light: #7f1d1d;
+  --warning-color: #f59e0b;
+  --card-bg: #1e293b;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.app {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
