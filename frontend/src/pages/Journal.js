@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { FiCheck, FiX, FiEdit2, FiTrash2, FiPlus, FiSave, FiXCircle } from 'react-icons/fi';
@@ -21,11 +21,7 @@ const Journal = () => {
   const daysInMonth = new Date(year, month, 0).getDate();
   const monthName = now.toLocaleString('default', { month: 'long' });
 
-  useEffect(() => {
-    fetchJournal();
-  }, [year, month]);
-
-  const fetchJournal = async () => {
+  const fetchJournal = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`/api/journal/${year}/${month}`);
@@ -37,7 +33,11 @@ const Journal = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [year, month]);
+
+  useEffect(() => {
+    fetchJournal();
+  }, [fetchJournal]);
 
   const handleAddGoal = async (e) => {
     e.preventDefault();

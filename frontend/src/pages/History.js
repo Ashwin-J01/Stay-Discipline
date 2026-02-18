@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { FiCalendar, FiTrendingUp, FiAward, FiTarget } from 'react-icons/fi';
@@ -14,11 +14,7 @@ const History = () => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchHistory();
-  }, []);
-
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get('/api/analytics/history?months=12');
@@ -32,7 +28,11 @@ const History = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchHistory();
+  }, [fetchHistory]);
 
   const handleMonthSelect = (monthData) => {
     setSelectedMonth(selectedMonth?.year === monthData.year && selectedMonth?.month === monthData.month ? null : monthData);
@@ -55,12 +55,6 @@ const History = () => {
     month: h.monthName.substring(0, 3),
     discipline: h.disciplinePercentage,
     points: h.pointsAchieved
-  }));
-
-  const streakData = history.map(h => ({
-    month: h.monthName.substring(0, 3),
-    completed: h.completedDays,
-    total: h.totalDays
   }));
 
   return (
