@@ -14,6 +14,8 @@ import {
 import { FaSpinner } from 'react-icons/fa';
 import './Dashboard.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalGoals: 0,
@@ -38,8 +40,8 @@ const Dashboard = () => {
       const month = now.getMonth() + 1;
 
       const [journalResponse, analyticsResponse] = await Promise.all([
-        axios.get(`/api/journal/${year}/${month}`),
-        axios.get(`/api/analytics/journal/${year}/${month}`)
+        axios.get(`${API_URL}/api/journal/${year}/${month}`),
+        axios.get(`${API_URL}/api/analytics/journal/${year}/${month}`)
       ]);
 
       const journal = journalResponse.data;

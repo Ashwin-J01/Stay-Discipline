@@ -5,6 +5,8 @@ import { FiCheck, FiX, FiEdit2, FiTrash2, FiPlus, FiSave, FiXCircle } from 'reac
 import { FaSpinner } from 'react-icons/fa';
 import './Journal.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const Journal = () => {
   const [journal, setJournal] = useState(null);
   const [newGoalName, setNewGoalName] = useState('');
@@ -24,7 +26,7 @@ const Journal = () => {
   const fetchJournal = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/journal/${year}/${month}`);
+      const response = await axios.get(`${API_URL}/api/journal/${year}/${month}`);
       setJournal(response.data);
       setError('');
     } catch (error) {
@@ -44,7 +46,7 @@ const Journal = () => {
     if (!newGoalName.trim()) return;
 
     try {
-      const response = await axios.post(`/api/journal/${year}/${month}/goal`, {
+      const response = await axios.post(`${API_URL}/api/journal/${year}/${month}/goal`, {
         goalName: newGoalName.trim(),
         points: newGoalPoints || 1
       });
@@ -62,7 +64,7 @@ const Journal = () => {
     if (!window.confirm('Are you sure you want to delete this goal?')) return;
 
     try {
-      const response = await axios.delete(`/api/journal/${year}/${month}/goal/${goalId}`);
+      const response = await axios.delete(`${API_URL}/api/journal/${year}/${month}/goal/${goalId}`);
       setJournal(response.data);
       setError('');
     } catch (error) {
@@ -87,7 +89,7 @@ const Journal = () => {
     if (!editingGoalName.trim()) return;
 
     try {
-      const response = await axios.put(`/api/journal/${year}/${month}/goal/${goalId}`, {
+      const response = await axios.put(`${API_URL}/api/journal/${year}/${month}/goal/${goalId}`, {
         goalName: editingGoalName.trim(),
         points: editingGoalPoints || 1
       });
@@ -104,7 +106,7 @@ const Journal = () => {
 
   const handleToggleDay = async (goalId, day) => {
     try {
-      const response = await axios.put(`/api/journal/${year}/${month}/goal/${goalId}/day/${day}`);
+      const response = await axios.put(`${API_URL}/api/journal/${year}/${month}/goal/${goalId}/day/${day}`);
       setJournal(response.data);
       setError('');
     } catch (error) {

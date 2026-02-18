@@ -6,6 +6,8 @@ import { FaSpinner } from 'react-icons/fa';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './History.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const History = () => {
   const [history, setHistory] = useState([]);
   const [bestMonth, setBestMonth] = useState(null);
@@ -17,7 +19,7 @@ const History = () => {
   const fetchHistory = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/analytics/history?months=12');
+      const response = await axios.get(`${API_URL}/api/analytics/history?months=12`);
       setHistory(response.data.history);
       setBestMonth(response.data.bestMonth);
       setMostConsistentMonth(response.data.mostConsistentMonth);
