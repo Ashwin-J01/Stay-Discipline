@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <Link to="/dashboard" className="navbar-brand">
           <FaBook className="brand-icon" />
-          <span>StayDisciple</span>
+          <span>StayDiscipline</span>
         </Link>
         <div className="navbar-links">
           <Link to="/dashboard" className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}>

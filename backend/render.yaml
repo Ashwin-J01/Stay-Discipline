@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: stay-discipline-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGODB_URI
+        scope: build
+        value: ${MONGODB_URI}
+      - key: JWT_SECRET
+        scope: build
+        value: ${JWT_SECRET}
+      - key: PORT
+        scope: build
+        value: 5000
+      - key: NODE_ENV
+        scope: build
+        value: production
