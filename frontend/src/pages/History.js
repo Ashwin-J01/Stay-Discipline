@@ -52,7 +52,6 @@ const History = () => {
     );
   }
 
-  // Prepare data for charts
   const disciplineData = history.map(h => ({
     month: h.monthName.substring(0, 3),
     discipline: h.disciplinePercentage,

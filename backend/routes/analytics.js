@@ -4,14 +4,10 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// Helper function to get days in month
 const getDaysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
 };
 
-// @route   GET /api/analytics/journal/:year/:month
-// @desc    Get journal analytics for a specific month
-// @access  Private
 router.get('/journal/:year/:month', auth, async (req, res) => {
   try {
     const { year, month } = req.params;
@@ -71,9 +67,6 @@ router.get('/journal/:year/:month', auth, async (req, res) => {
   }
 });
 
-// @route   GET /api/analytics/history
-// @desc    Get historical data for multiple months
-// @access  Private
 router.get('/history', auth, async (req, res) => {
   try {
     const userId = req.user._id;
@@ -126,13 +119,12 @@ router.get('/history', auth, async (req, res) => {
       });
     }
 
-    // Find best month
+
     const bestMonth = results.reduce((best, current) => 
       current.disciplinePercentage > (best?.disciplinePercentage || 0) ? current : best,
       null
     );
 
-    // Find most consistent month (highest completed days)
     const mostConsistentMonth = results.reduce((best, current) => 
       current.completedDays > (best?.completedDays || 0) ? current : best,
       null

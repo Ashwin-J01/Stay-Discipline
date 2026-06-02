@@ -12,7 +12,6 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   useEffect(() => {
-    // Always set to dark theme
     document.documentElement.setAttribute('data-theme', 'dark');
   }, []);
 

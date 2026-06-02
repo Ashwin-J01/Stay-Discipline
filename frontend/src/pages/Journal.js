@@ -115,7 +115,6 @@ const Journal = () => {
     }
   };
 
-  // Calculate total points for a goal
   const calculateGoalPoints = (goal) => {
     const completedDays = goal.days.filter(day => day).length;
     return completedDays * (goal.points || 1);

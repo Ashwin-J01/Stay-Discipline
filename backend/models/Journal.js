@@ -36,7 +36,6 @@ const journalSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Compound index to ensure one journal per user per month/year
 journalSchema.index({ userId: 1, month: 1, year: 1 }, { unique: true });
 
 module.exports = mongoose.model('Journal', journalSchema);

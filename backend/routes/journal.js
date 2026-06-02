@@ -4,19 +4,14 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// Helper function to get days in month
 const getDaysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
 };
 
-// Helper function to initialize days array
 const initializeDaysArray = (daysInMonth) => {
   return new Array(daysInMonth).fill(false);
 };
 
-// @route   GET /api/journal/:year/:month
-// @desc    Get journal for specific month
-// @access  Private
 router.get('/:year/:month', auth, async (req, res) => {
   try {
     const { year, month } = req.params;
@@ -25,7 +20,6 @@ router.get('/:year/:month', auth, async (req, res) => {
     let journal = await Journal.findOne({ userId, year: parseInt(year), month: parseInt(month) });
 
     if (!journal) {
-      // Create new journal for this month
       const daysInMonth = getDaysInMonth(parseInt(month), parseInt(year));
       journal = new Journal({
         userId,
@@ -35,11 +29,9 @@ router.get('/:year/:month', auth, async (req, res) => {
       });
       await journal.save();
     } else {
-      // Ensure all goals have correct number of days
       const daysInMonth = getDaysInMonth(parseInt(month), parseInt(year));
       journal.goals = journal.goals.map(goal => {
         if (goal.days.length !== daysInMonth) {
-          // Adjust days array to match current month
           const newDays = [...goal.days];
           while (newDays.length < daysInMonth) {
             newDays.push(false);
@@ -61,9 +53,6 @@ router.get('/:year/:month', auth, async (req, res) => {
   }
 });
 
-// @route   POST /api/journal/:year/:month/goal
-// @desc    Add a new goal
-// @access  Private
 router.post('/:year/:month/goal', auth, async (req, res) => {
   try {
     const { year, month } = req.params;
@@ -103,9 +92,6 @@ router.post('/:year/:month/goal', auth, async (req, res) => {
   }
 });
 
-// @route   PUT /api/journal/:year/:month/goal/:goalId
-// @desc    Update goal name and/or points
-// @access  Private
 router.put('/:year/:month/goal/:goalId', auth, async (req, res) => {
   try {
     const { year, month, goalId } = req.params;
@@ -140,9 +126,6 @@ router.put('/:year/:month/goal/:goalId', auth, async (req, res) => {
   }
 });
 
-// @route   DELETE /api/journal/:year/:month/goal/:goalId
-// @desc    Delete a goal
-// @access  Private
 router.delete('/:year/:month/goal/:goalId', auth, async (req, res) => {
   try {
     const { year, month, goalId } = req.params;
@@ -164,9 +147,6 @@ router.delete('/:year/:month/goal/:goalId', auth, async (req, res) => {
   }
 });
 
-// @route   PUT /api/journal/:year/:month/goal/:goalId/day/:day
-// @desc    Toggle day completion
-// @access  Private
 router.put('/:year/:month/goal/:goalId/day/:day', auth, async (req, res) => {
   try {
     const { year, month, goalId, day } = req.params;
@@ -189,7 +169,6 @@ router.put('/:year/:month/goal/:goalId/day/:day', auth, async (req, res) => {
       return res.status(400).json({ message: 'Invalid day' });
     }
 
-    // Ensure days array has correct length
     if (goal.days.length !== daysInMonth) {
       const newDays = [...goal.days];
       while (newDays.length < daysInMonth) {
@@ -201,7 +180,6 @@ router.put('/:year/:month/goal/:goalId/day/:day', auth, async (req, res) => {
       goal.days = newDays;
     }
 
-    // Toggle the day
     goal.days[dayIndex] = !goal.days[dayIndex];
     await journal.save();
 
